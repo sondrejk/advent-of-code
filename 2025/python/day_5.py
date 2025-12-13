@@ -33,13 +33,14 @@ def part_2():
             line = file.readline().strip()
 
     ranges = [[int(line.split("-")[0]), int(line.split("-")[1])] for line in ranges]
+    ranges.sort(key=lambda x: x[0])
 
-    fresh_ids: set = set()
-
-    for rangee in ranges:
-        print(rangee)
-        fresh_ids.update(range(rangee[0], rangee[1] + 1))
-    print(len(fresh_ids))
+    sum = 0
+    highest = 0
+    for range in ranges:
+        sum += max(range[1] - max(range[0], highest + 1) + 1, 0)
+        highest = max(highest, range[1])
+    print(sum)
 
 
 if __name__ == "__main__":
